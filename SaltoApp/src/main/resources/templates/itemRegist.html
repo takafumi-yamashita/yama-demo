@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<title>商品情報登録画面</title>
+</head>
+<body>
+<div th:insert="~{common/sourceList::sourceList}"></div>
+<div th:replace="~{common/messageicon::messageicon}"></div>
+<div class="container-fluid">
+	<h2>商品情報登録</h2>
+	<div class="alert d-flex align-items-center" th:classappend="|${isError ? 'alert-danger' : 'alert-primary'}|" role="alert" th:if="${message != null}">
+		<svg class="bi flex-shrink-0 me-2" width="24" height="24">
+			<use xlink:href="#exclamation-triangle-fill" th:if="${isError}"/>
+			<use xlink:href="#info-fill" th:unless="${isError}"/>
+		</svg>
+		<span th:text="${message}"></span>
+	</div>
+	<form th:action="@{/itemRegist}" method="post" th:object="${itemRegistForm}">
+		<div class="form-group">
+			<div class="col-9 col-md-6 col-xxl-3 mt-3">
+				<label for="itemId">商品ID：</label>
+				<input class="form-control" type="text" th:field="*{itemId}">
+				<span class="text-danger" th:if="${#fields.hasErrors('itemId')}" th:errors="*{itemId}"></span>
+			</div>
+			<div class="col-9 col-md-6 col-xxl-3 mt-3">
+				<label for="itemName">商品名：</label>
+				<input class="form-control" type="text" th:field="*{itemName}">
+				<span class="text-danger" th:if="${#fields.hasErrors('itemName')}" th:errors="*{itemName}"></span>
+			</div>
+			<div class="col-9 col-md-6 col-xxl-3 mt-3">
+				<label for="itemPrice">単価：</label>
+				<input class="form-control" type="text" th:field="*{itemPrice}">
+				<span class="text-danger" th:if="${#fields.hasErrors('itemPrice')}" th:errors="*{itemPrice}"></span>
+			</div>
+			<div class="col-9 col-md-6 col-xxl-3 mt-3">
+				<label for="itemStock">在庫数量：</label>
+				<input class="form-control" type="text" th:field="*{itemStock}">
+				<span class="text-danger" th:if="${#fields.hasErrors('itemStock')}" th:errors="*{itemStock}"></span>
+			</div>
+			<p><input class="btn btn-primary my-3" type="submit" value="商品登録"></p>
+		</div>
+	</form>
+	<a th:href="@{/itemList}">▶︎商品一覧画面へ戻る</a>
+</div>
+</body>
+</html>

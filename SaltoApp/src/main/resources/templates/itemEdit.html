@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>ユーザー編集</title>
+</head>
+<body>
+<div th:insert="~{common/sourceList :: sourceList}"></div>
+<div th:replace="~{common/header :: header}"></div>
+<div th:replace="~{common/messageicon :: messageicon}"></div>
+<script type="text/javascript" th:src="@{/js/itemList.js}"></script>
+<div class="container-fluid">
+	<div class="alert d-flex align-items-center mt-3" th:classappend="|${isError ? 'alert-danger' : 'alert-primary'}|" role="alert" th:if="${message != null}">
+		<svg class="bi flex-shrink-0 me-2" width="24" height="24">
+			<use xlink:href="#exclamation-triangle-fill" th:if="${isError}" />
+			<use xlink:href="#info-fill" th:unless="${isError}"/>
+		</svg>
+		<span th:text="${message}"></span>
+	</div>
+	<h2 class="mt-3">ユーザー情報更新</h2>
+	<form th:action="@{/itemEdit}" method="post" th:object="${itemEditForm}">
+		<div class="mt-3">
+			<table>
+				<tr>
+					<td><label for="itemId">商品ID：</label></td>
+					<td>
+						<div class="row g-3 align-items-center">
+							<div class="col-auto">
+								<span th:text="${itemEditInfo.itemId}"></span>
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><label for="itemName">商品名：</label></td>
+					<td>
+						<div class="row g-3 align-items-center">
+							<div class="col-auto">
+								<input type="text" class="form-control" th:field="*{itemName}" id="itemName">
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><label for="itemPrice">単価：</label></td>
+					<td>
+						<div class="row g-3 align-items-center">
+							<div class="col-auto">
+								<input type="text" class="form-control" th:field="*{itemPrice}" id="itemPrice">
+							</div>
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td><label for="itemStock">在庫数量：</label></td>
+					<td>
+						<div class="row g-3 align-items-center">
+							<div class="col-auto">
+								<input type="text" class="form-control" th:field="*{itemStock}" id="itemStock">
+							</div>
+						</div>
+					</td>
+				</tr>
+			</table>
+			<div class="mt-3">
+				<input type="submit" class="btn btn-primary" name="update" value="更新">
+				<a class="btn btn-secondary" th:href="@{/itemList}">戻る</a>
+			</div>
+		</div>
+	</form>
+</div>
+
+</body>
+</html>
